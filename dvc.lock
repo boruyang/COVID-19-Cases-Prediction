@@ -1,0 +1,11 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/stage/load_data.py
+    outs:
+    - path: data/raw/covid_test.csv
+      md5: d00c97029f08e1da2906f44a9e1a8f73
+      size: 638359
+    - path: data/raw/covid_train.csv
+      md5: 4518ba4fab28532392d2c2b80286e530
+      size: 2162766

@@ -1,0 +1,6 @@
+stages:
+  load_data:
+    cmd: python src/stage/load_data.py
+    outs:
+    - data/raw/covid_test.csv
+    - data/raw/covid_train.csv
