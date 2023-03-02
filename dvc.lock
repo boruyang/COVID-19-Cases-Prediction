@@ -42,3 +42,33 @@ stages:
     - path: data/processed/y_valid.npy
       md5: e8bd1fbed058019f5255bab9d692d0dd
       size: 4936
+  train:
+    cmd: python src/stage/train.py --config=params.yaml
+    deps:
+    - path: data/processed/x_train.npy
+      md5: ad2d7a5950afe355b423ce76de3238b6
+      size: 1695360
+    - path: data/processed/x_valid.npy
+      md5: 2109dc3d28c09471e5123e2250880115
+      size: 423232
+    - path: data/processed/y_train.npy
+      md5: 5c4a25f01445e6a2f6b8cc2a1ce5e357
+      size: 19392
+    - path: data/processed/y_valid.npy
+      md5: e8bd1fbed058019f5255bab9d692d0dd
+      size: 4936
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        train:
+          batch_size: 256
+          learning_rate: 1e-05
+          n_epochs: 50
+          save_path: model/model.pt
+          early_stop: 500
+    outs:
+    - path: model/model.pt
+      md5: 436221a6949042302e2d5f0894e961e3
+      size: 8327

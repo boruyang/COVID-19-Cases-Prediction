@@ -18,3 +18,15 @@ stages:
     - data/processed/x_valid.npy
     - data/processed/y_train.npy
     - data/processed/y_valid.npy
+  train:
+    cmd: python src/stage/train.py --config=params.yaml
+    deps:
+    - data/processed/x_train.npy
+    - data/processed/x_valid.npy
+    - data/processed/y_train.npy
+    - data/processed/y_valid.npy
+    params:
+    - base
+    - train
+    outs:
+    - model/model.pt
