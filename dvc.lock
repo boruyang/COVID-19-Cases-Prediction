@@ -9,3 +9,36 @@ stages:
     - path: data/raw/covid_train.csv
       md5: 4518ba4fab28532392d2c2b80286e530
       size: 2162766
+  generate_dataset:
+    cmd: python src/stage/generate_dataset.py --config=params.yaml
+    deps:
+    - path: data/raw/covid_test.csv
+      md5: d00c97029f08e1da2906f44a9e1a8f73
+      size: 638359
+    - path: data/raw/covid_train.csv
+      md5: 4518ba4fab28532392d2c2b80286e530
+      size: 2162766
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        generate_dataset:
+          valid_ratio: 0.2
+          feature_selection:
+    outs:
+    - path: data/processed/x_test.npy
+      md5: d03fb84c3df34b574ee8d78973735dbf
+      size: 702016
+    - path: data/processed/x_train.npy
+      md5: ad2d7a5950afe355b423ce76de3238b6
+      size: 1695360
+    - path: data/processed/x_valid.npy
+      md5: 2109dc3d28c09471e5123e2250880115
+      size: 423232
+    - path: data/processed/y_train.npy
+      md5: 5c4a25f01445e6a2f6b8cc2a1ce5e357
+      size: 19392
+    - path: data/processed/y_valid.npy
+      md5: e8bd1fbed058019f5255bab9d692d0dd
+      size: 4936

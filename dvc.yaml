@@ -4,3 +4,17 @@ stages:
     outs:
     - data/raw/covid_test.csv
     - data/raw/covid_train.csv
+  generate_dataset:
+    cmd: python src/stage/generate_dataset.py --config=params.yaml
+    deps:
+    - data/raw/covid_test.csv
+    - data/raw/covid_train.csv
+    params:
+    - base
+    - generate_dataset
+    outs:
+    - data/processed/x_test.npy
+    - data/processed/x_train.npy
+    - data/processed/x_valid.npy
+    - data/processed/y_train.npy
+    - data/processed/y_valid.npy

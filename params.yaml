@@ -1,0 +1,7 @@
+base:
+  random_state: 42
+  log_level: INFO
+
+generate_dataset:
+  valid_ratio: 0.2
+  feature_selection: null # set null for None in python
