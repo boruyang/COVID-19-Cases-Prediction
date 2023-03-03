@@ -12,3 +12,7 @@ train:
   n_epochs: 50
   save_path: 'model/model.pt'
   early_stop: 500
+
+evaluate:
+  metrics_save_path: report/metrics.json
+  pred_save_path: report/pred.csv

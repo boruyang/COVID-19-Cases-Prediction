@@ -72,3 +72,45 @@ stages:
     - path: model/model.pt
       md5: 436221a6949042302e2d5f0894e961e3
       size: 8327
+  evaluate:
+    cmd: python src/stage/evaluate.py --config=params.yaml
+    deps:
+    - path: data/processed/x_test.npy
+      md5: d03fb84c3df34b574ee8d78973735dbf
+      size: 702016
+    - path: data/processed/x_train.npy
+      md5: ad2d7a5950afe355b423ce76de3238b6
+      size: 1695360
+    - path: data/processed/x_valid.npy
+      md5: 2109dc3d28c09471e5123e2250880115
+      size: 423232
+    - path: data/processed/y_train.npy
+      md5: 5c4a25f01445e6a2f6b8cc2a1ce5e357
+      size: 19392
+    - path: data/processed/y_valid.npy
+      md5: e8bd1fbed058019f5255bab9d692d0dd
+      size: 4936
+    - path: model/model.pt
+      md5: 436221a6949042302e2d5f0894e961e3
+      size: 8327
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        evaluate:
+          metrics_save_path: report/metrics.json
+          pred_save_path: report/pred.csv
+        train:
+          batch_size: 256
+          learning_rate: 1e-05
+          n_epochs: 50
+          save_path: model/model.pt
+          early_stop: 500
+    outs:
+    - path: report/metrics.json
+      md5: aaa3d7897c4d031280a69cd5722767f7
+      size: 65
+    - path: report/pred.csv
+      md5: ec3315b114bcee617da5355c872bf0b5
+      size: 14567

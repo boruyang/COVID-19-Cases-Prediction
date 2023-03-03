@@ -30,3 +30,22 @@ stages:
     - train
     outs:
     - model/model.pt
+  evaluate:
+    cmd: python src/stage/evaluate.py --config=params.yaml
+    deps:
+    - data/processed/x_test.npy
+    - data/processed/x_train.npy
+    - data/processed/x_valid.npy
+    - data/processed/y_train.npy
+    - data/processed/y_valid.npy
+    - model/model.pt
+    params:
+    - base
+    - evaluate
+    - train
+    outs:
+    - report/pred.csv:
+        cache: false
+    metrics:
+    - report/metrics.json:
+        cache: false
