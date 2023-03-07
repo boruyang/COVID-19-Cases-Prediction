@@ -53,7 +53,15 @@ def model_training(train_loader, valid_loader, model, config, device, logger):
     '''Model training process'''
 
     criterion = nn.MSELoss(reduction='mean')
-    optimizer = torch.optim.SGD(model.parameters(), lr=config['train']['learning_rate'], momentum=0.7)
+
+    lr = config['train']['learning_rate']
+    l2_penalty = config['train']['l2_penalty']
+    if config['train']['optimizer'] == 'SGD':
+        optimizer = torch.optim.SGD(model.parameters(), lr=lr, weight_decay=l2_penalty, momentum=0.7)
+    elif config['train']['optimizer'] == 'Adam':
+        optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=l2_penalty)
+    elif config['train']['optimizer'] == 'RMSprop':
+        optimizer = torch.optim.RMSprop(model.parameters(), lr=lr, weight_decay=l2_penalty, momentum=0.7)
 
     if not os.path.isdir('./model'):
         os.mkdir('./model')
