@@ -30,6 +30,8 @@ stages:
     - train
     outs:
     - model/model.pt
+    - learning_curve.png:
+        cache: false
   evaluate:
     cmd: python src/stage/evaluate.py --config=params.yaml
     deps:

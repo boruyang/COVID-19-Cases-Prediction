@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 import torch
@@ -67,6 +68,7 @@ def model_training(train_loader, valid_loader, model, config, device, logger):
         os.mkdir('./model')
     
     n_epochs, best_loss, early_stop_count = config['train']['n_epochs'], math.inf, 0
+    loss_record_epoch = []
 
     for epoch in range(n_epochs):
         model.train()
@@ -101,6 +103,7 @@ def model_training(train_loader, valid_loader, model, config, device, logger):
         
         mean_valid_loss = sum(loss_record) / len(loss_record)
         logger.info(f'Epoch [{epoch + 1} / {n_epochs}]: Train loss: {mean_train_loss:.4f}, Valid loss: {mean_valid_loss:.4f}')
+        loss_record_epoch.append((mean_train_loss, mean_valid_loss))
 
         if mean_valid_loss < best_loss:
             best_loss = mean_valid_loss
@@ -112,4 +115,17 @@ def model_training(train_loader, valid_loader, model, config, device, logger):
 
         if early_stop_count >= config['train']['early_stop']:
             logger.info('\nModel is not improving, so we halt the training session.')
-            return
+            return loss_record_epoch       
+    
+    return loss_record_epoch
+
+def plot_loss_history(loss_history, config):
+    loss_history = list(zip(*loss_history))
+    plt.plot(range(config['train']['n_epochs']), loss_history[0], label='train loss')
+    plt.plot(range(config['train']['n_epochs']), loss_history[1], label='validation loss')
+    plt.title('Learning Curve')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.savefig(config['train']['history_save_path'])
+

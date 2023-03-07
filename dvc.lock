@@ -75,7 +75,11 @@ stages:
           n_epochs: 1000
           save_path: model/model.pt
           early_stop: 500
+          history_save_path: learning_curve.png
     outs:
+    - path: learning_curve.png
+      md5: b2d2f97616383acfab8f90931ed95e9a
+      size: 27087
     - path: model/model.pt
       md5: dd8c07f392587cc746ec2e625de91ed6
       size: 86255
@@ -121,6 +125,7 @@ stages:
           n_epochs: 1000
           save_path: model/model.pt
           early_stop: 500
+          history_save_path: learning_curve.png
     outs:
     - path: report/metrics.json
       md5: b7eeaac5a114caf38bc9699cf0b03f84
