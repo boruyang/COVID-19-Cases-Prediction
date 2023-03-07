@@ -65,18 +65,20 @@ stages:
         train:
           batch_size: 256
           unit:
+          - 128
+          - 64
           - 16
           - 8
-          optimizer: SGD
+          optimizer: Adam
           learning_rate: 1e-05
-          l2_penalty: 0
-          n_epochs: 50
+          l2_penalty: 0.0001
+          n_epochs: 1000
           save_path: model/model.pt
           early_stop: 500
     outs:
     - path: model/model.pt
-      md5: 436221a6949042302e2d5f0894e961e3
-      size: 8327
+      md5: dd8c07f392587cc746ec2e625de91ed6
+      size: 86255
   evaluate:
     cmd: python src/stage/evaluate.py --config=params.yaml
     deps:
@@ -96,8 +98,8 @@ stages:
       md5: e8bd1fbed058019f5255bab9d692d0dd
       size: 4936
     - path: model/model.pt
-      md5: 436221a6949042302e2d5f0894e961e3
-      size: 8327
+      md5: dd8c07f392587cc746ec2e625de91ed6
+      size: 86255
     params:
       params.yaml:
         base:
@@ -109,18 +111,20 @@ stages:
         train:
           batch_size: 256
           unit:
+          - 128
+          - 64
           - 16
           - 8
-          optimizer: SGD
+          optimizer: Adam
           learning_rate: 1e-05
-          l2_penalty: 0
-          n_epochs: 50
+          l2_penalty: 0.0001
+          n_epochs: 1000
           save_path: model/model.pt
           early_stop: 500
     outs:
     - path: report/metrics.json
-      md5: aaa3d7897c4d031280a69cd5722767f7
+      md5: b7eeaac5a114caf38bc9699cf0b03f84
       size: 65
     - path: report/pred.csv
-      md5: ec3315b114bcee617da5355c872bf0b5
-      size: 14567
+      md5: 9fca9b1ac30cdea48a01b36b9fe62135
+      size: 14502
