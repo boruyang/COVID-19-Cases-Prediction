@@ -28,7 +28,7 @@ def main(config_path):
     test_loader = DataLoader(test_dataset, batch_size=config['train']['batch_size'], shuffle=False, pin_memory=True)
     
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = Model(input_dim=x_train.shape[1]).to(device)
+    model = Model(input_dim=x_train.shape[1], unit=config['train']['unit']).to(device)
     model.load_state_dict(torch.load(config['train']['save_path']))
 
     if not os.path.isdir('./report'):

@@ -34,15 +34,15 @@ def same_seed(seed: int):
         torch.cuda.manual_seed_all(seed)
 
 class Model(nn.Module):
-    def __init__(self, input_dim):
+    def __init__(self, input_dim, unit):
         super(Model, self).__init__()
-        self.layers = nn.Sequential(
-            nn.Linear(input_dim, 16),
-            nn.ReLU(),
-            nn.Linear(16, 8),
-            nn.ReLU(),
-            nn.Linear(8, 1)
-        )
+        layers = [nn.Linear(input_dim, unit[0]),
+                  nn.ReLU()]
+        for i in range(1, len(unit)):
+            layers.append(nn.Linear(unit[i - 1], unit[i]))
+            layers.append(nn.ReLU())
+        layers.append(nn.Linear(unit[-1], 1))
+        self.layers = nn.Sequential(*layers)
 
     def forward(self, x):
         x = self.layers(x)

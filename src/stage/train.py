@@ -26,7 +26,7 @@ def main(config_path):
     
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     same_seed(config['base']['random_state'])
-    model = Model(input_dim=x_train.shape[1]).to(device)
+    model = Model(input_dim=x_train.shape[1], unit=config['train']['unit']).to(device)
     model_training(train_loader, valid_loader, model, config, device, logger)
 
 if __name__ == "__main__":

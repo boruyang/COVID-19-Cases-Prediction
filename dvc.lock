@@ -64,6 +64,9 @@ stages:
           log_level: INFO
         train:
           batch_size: 256
+          unit:
+          - 16
+          - 8
           learning_rate: 1e-05
           n_epochs: 50
           save_path: model/model.pt
@@ -103,6 +106,9 @@ stages:
           pred_save_path: report/pred.csv
         train:
           batch_size: 256
+          unit:
+          - 16
+          - 8
           learning_rate: 1e-05
           n_epochs: 50
           save_path: model/model.pt
